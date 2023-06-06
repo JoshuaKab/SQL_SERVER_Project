@@ -1,0 +1,159 @@
+---
+title: "Adidas_sales"
+author: "Joshua"
+date: "2023-06-06"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Adidas Sales store
+
+Adidas AG (German: [ˈʔadiˌdas] ( listen); stylized as adidas since 1949) is a German athletic apparel and footwear corporation headquartered in Herzogenaurach, Bavaria, Germany. It is the largest sportswear manufacturer in Europe, and the second largest in the world, after Nike. 
+
+Adidas AG, the adidas group, is one of the largest manufacturers of sports shoes and clothing in Europe and the second-biggest in the world after the main competitor Nike. Adidas produces and sells sports clothing, sneakers, running shoes, bags, accessories like watches and sunglasses, and so on through its e-com shop, over a thousand retail stores, and several franchises. The brand is headquartered in Herzogenaurach, Germany.
+
+Were going to focus on the USA Sales in this analysis
+THE DATASET was download from github account 
+
+
+```{r adidas}
+# load the packages
+
+library(tidyverse)
+library(readr)
+library(dplyr)
+library(ggplot2)
+library(janitor)
+library(readxl)
+
+```
+
+```{r}
+df <- read_xlsx("Adidas Sales (2020-2021).xlsx")
+```
+
+
+Data Wrangling and cleaning
+
+```{r}
+head(df)
+```
+
+```{r}
+summary(df)
+```
+```{r}
+summary(df$`Price per Unit`)
+
+```
+
+
+
+
+```{r}
+#count the  null value
+sum(is.na(df))
+unique(count(df))
+```
+
+
+```{r}
+# 
+sum(duplicated(df))
+```
+```{r}
+#cleaning the column
+adidas <- df %>%  clean_names()
+```
+
+```{r}
+str(adidas)
+```
+ **Now we can analyze the data**
+```{r}
+plot(adidas$price_per_unit)
+```
+```{r}
+
+ggplot(adidas, aes(x=price_per_unit, y=units_sold )) + 
+  geom_point(aes(color=sales_method )) + 
+  labs(y="unite", 
+       x="price", 
+       title="price per unit and unite sold vs sold methode ")+ 
+       theme_gray()+ # Default theme 
+        theme(plot.title = element_text(size=22),axis.text.x= element_text(size=15),
+                            axis.text.y= element_text(size=15), axis.title=element_text(size=18))
+```
+
+
+
+
+```{r}
+ggplot(adidas, aes( x =retailer,  y= total_sales)) + 
+  geom_col(aes(fill=retailer )) + 
+  labs(x=" ", 
+       y="amount",
+       title="Quality of Education Vs Score against Country & Citations")+ 
+        theme_bw()+
+theme(plot.title = element_text(size=22),axis.text.x= element_text(size=15,angle=90),
+                            axis.text.y= element_text(size=15), axis.title=element_text(size=18))
+```
+
+
+
+
+
+```{r}
+ggplot(adidas, aes(x=units_sold ,y=total_sales, color=region)) +
+  geom_jitter(width = .5, size=2)+  # Adjusting size and width of points
+    labs(x="unit",
+         y="total sold", 
+       title="total sales vs unit_sold ")+ 
+theme_bw()+
+theme(plot.title = element_text(size=22),axis.text.x= element_text(size=15),
+                            axis.text.y= element_text(size=15), axis.title=element_text(size=18))
+```
+```{r}
+ggplot(adidas, aes(x= region, y=total_sales, fill=sales_method))+
+geom_col(position='dodge', width = 0.5)+  # Stack for stacked chart
+ labs(x=" ",
+         y="Count", 
+       title="Distribution of sales per region")+ 
+theme_bw()+
+theme(plot.title = element_text(size=22),axis.text.x= element_text(size=15,angle=90),
+                            axis.text.y= element_text(size=15), axis.title=element_text(size=18))
+```
+```{r}
+ggplot(adidas, aes(x= product, y=total_sales, fill=sales_method))+
+geom_col(position='dodge', width = 0.5)+  # Stack for stacked chart
+ labs(x=" ",
+         y="Count", 
+       title="Distribution of sales per region")+ facet_wrap(~region) +
+theme_bw()+
+theme(plot.title = element_text(size=12),axis.text.x= element_text(size=12,angle=90),
+                            axis.text.y= element_text(size=12), axis.title=element_text(size=13))
+```
+```{r}
+ggplot(adidas, aes(x= product, y=total_sales, fill=region))+
+geom_col(position='dodge', width = 0.7)+  # Stack for stacked chart
+ labs(x=" ",
+         y="Count", 
+       title="Distribution of sales per region")+ 
+theme_bw()+
+theme(plot.title = element_text(size=22),axis.text.x= element_text(size=15,angle=90),
+                            axis.text.y= element_text(size=15), axis.title=element_text(size=18))
+```
+
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+
