@@ -39,3 +39,29 @@ Output
 
 ![image](https://github.com/JoshuaKab/SQL-Queries/assets/135429439/ed001522-7ea6-4b83-9365-efb3d385d3f2)
 
+3. What's the total distribution charges per gender distribution
+
+```python
+
+ SELECT
+ sex, smoker,
+ SUM(Charges) AS total_qty, 
+ COUNT(*) as Total_count,
+ round((SUM(Charges) / (SELECT SUM(Charges) FROM insurance) * 100),2) AS percentage
+ from insurance
+ GROUP by sex, smoker
+
+```
+
+Output
+
+
+![image](https://github.com/JoshuaKab/SQL-Queries/assets/135429439/4acdea6a-165c-4382-895c-881b1a7edcc9)
+
+Female that smorks pay more than the none smokers with different of 12.7% from total charge
+
+Males are the opposite, males that are smoking are less charge than the none smokers
+
+In total males are paying 6.28% high the famales 
+
+
