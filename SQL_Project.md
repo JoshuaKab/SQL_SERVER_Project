@@ -6,11 +6,12 @@ SELECT region,
 	AVG(age) AS Age_average,
     Sum(children) as number_children
 FROM insurance
-group by region
+GROUP BY region
 ```
 Output
 
-![image](https://github.com/JoshuaKab/SQL-Queries/assets/135429439/9a634951-d159-4f93-9328-877d95546588)
+![image](https://github.com/JoshuaKab/SQL-Queries/assets/135429439/7de5e066-1f08-40c3-a40a-0eb2988d0250)
+
 
 
 
