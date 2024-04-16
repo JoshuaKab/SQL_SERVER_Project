@@ -1,4 +1,6 @@
-Joshua Project
+Project name: Data analyst for Insurance 
+
+
 ```python
 1. what's the age disrbution per region and total number of children
 
@@ -17,7 +19,7 @@ Output
 
 
 ```python
-2. What 's the body mass distribution per region
+2. What 's the body mass distribution per gender
 
 WITH Weight_Category AS (SELECT region, smoker, sex,
   CASE 
@@ -28,21 +30,23 @@ WITH Weight_Category AS (SELECT region, smoker, sex,
   ELSE 'Extremely obese' END as Weight_group
 FROM insurance)
 
-SELECT Weight_group,
+SELECT Weight_group, sex,
   COUNT(Weight_group) as total_count
 FROM  Weight_Category
-GROUP by Weight_group
+GROUP by Weight_group,sex
 
 ```
 
 Output
 
 
-![image](https://github.com/JoshuaKab/SQL-Queries/assets/135429439/ed001522-7ea6-4b83-9365-efb3d385d3f2)
+![image](https://github.com/JoshuaKab/SQL-Queries/assets/135429439/0026ce39-be11-4c8e-b170-f21d27902dbb)
 
-3. What's the total distribution charges per gender distribution
+
+The weight distribution query showed that most people are obese follow by overweight and leas weight group is the people under weight mostly woman
 
 ```python
+3. What's the total distribution charges per gender distribution
 
  SELECT
  sex, smoker,
@@ -53,6 +57,7 @@ Output
  GROUP by sex, smoker
 
 ```
+		
 
 Output
 
@@ -64,5 +69,38 @@ Female that smorks pay more than the none smokers with different of 12.7% from t
 Males are the opposite, males that are smoking are less charge than the none smokers
 
 In total males are paying 6.28% high the famales 
+
+
+```python
+4. What's children distribution per customers
+ SELECT children,
+ count(children) as total,
+    (count(smoker) / (SELECT COUNT(smoker) FROM insurance) * 100) AS percentage
+FROM insurance
+GROUP by children
+    
+
+```
+Output
+
+![image](https://github.com/JoshuaKab/SQL-Queries/assets/135429439/d75d0d18-5529-4d5b-ab84-3828f843ca60)
+  Most customers don't have children follow those with only 1 chlid
+
+```python
+
+5. What's the distribution per customers with smoking habits
+SELECT smoker,
+count(smoker) as total,
+    (count(smoker) / (SELECT COUNT(smoker) FROM insurance) * 100) AS percentage
+FROM insurance
+GROUP by smoker
+
+```
+Outpu
+
+![image](https://github.com/JoshuaKab/SQL-Queries/assets/135429439/3c627f9c-0124-4285-87ce-b023fed0e1a5)
+
+ 20.5% of customers do smokes 
+ 79.5% of customers don't smork
 
 
