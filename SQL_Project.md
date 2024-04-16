@@ -1,4 +1,4 @@
-Project name: Data analyst for Insurance 
+Project name: Data analyst for Insurance  
 
 
 ```python
