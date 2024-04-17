@@ -1,8 +1,8 @@
 /*Introduction
-As a data student or professional, you know that SQL is a crucial 
-tool for querying and manipulating data in relational databases. In this tutorial, we will delve into some of the more
- advanced features of SQL, including subqueries, joins, and aggregate functions. These techniques will allow you 
- to perform complex operations on your data and extract insights that 
+As a data analyst, 
+knowing  SQL query is a crucial tool for querying and manipulating data in relational databases. 
+In this tutorial, we will delve into some of the more advanced features of SQL, including subqueries, 
+joins, and aggregate functions. These techniques will allow you to perform complex operations on your data and extract insights that 
 would be difficult or impossible using basic SQL commands.
 
 We will start by covering subqueries, which are nested 
@@ -39,14 +39,22 @@ You can also use subqueries to update or insert data. For example, you might use
 Joins are a crucial technique for combining data from multiple tables in a database. They allow you to retrieve 
 data from multiple tables in a single query, making it easy to work with large and complex datasets. */
 
-SELECT employees.*, departments.* FROM employees INNER JOIN departments ON employees.department_id = departments.id;
+SELECT employees.*, departments.* 
+ FROM employees 
+ INNER JOIN departments 
+ ON employees.department_id = departments.id;
 
 /* left join */
-SELECT employees.*, departments.* FROM employees LEFT OUTER JOIN departments ON employees.department_id = departments.id;
+SELECT employees.*, departments.* 
+ FROM employees 
+ LEFT OUTER JOIN departments 
+ ON employees.department_id = departments.id;
 
 /* cross join */
 
-SELECT * FROM employees CROSS JOIN departments;
+SELECT * 
+FROM employees 
+CROSS JOIN departments;
 
  /* Aggregate Functions
 Aggregate functions are used to perform calculations on sets of data. They allow you to extract insights from your data
