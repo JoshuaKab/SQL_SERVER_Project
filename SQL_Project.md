@@ -10,7 +10,7 @@ Content
 
 This dataset contains 1338 rows of insured data, where the Insurance charges are given against the following attributes of the insured: Age, Sex, BMI, Number of Children, Smoker and Region. There are no missing or undefined values in the dataset.
 
-Overview
+Overview with excel sheet
 
 
 ![image](https://github.com/JoshuaKab/SQL-Queries/assets/135429439/a5e46920-0792-4ed0-a948-a229d5a0ce71)
@@ -28,7 +28,8 @@ HAVING COUNT(age) > 25
 
 ```
 Output
-![image](https://github.com/JoshuaKab/SQL-Queries/assets/135429439/7de5e066-1f08-40c3-a40a-0eb2988d0250)
+![image](https://github.com/JoshuaKab/SQL-Queries/assets/135429439/c26cf0d5-a881-4a3f-b665-abf2e5c1f88a)
+
 The age distribution shows that most of the customers are between the ages of 18 and 40. 
 The youngest is 18, and the oldest is 64.
 Output
