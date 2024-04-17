@@ -1,25 +1,66 @@
-Project name: Data analyst for Insurance  
+Project name: Data analyst for US Health Insurance 
+
+About Dataset
+
+Context
+
+The venerable insurance industry is no stranger to data driven decision making. Yet in today's rapidly transforming digital landscape, Insurance is struggling to adapt and benefit from new technologies compared to other industries, even within the BFSI sphere (compared to the Banking sector for example.) Extremely complex underwriting rule-sets that are radically different in different product lines, many non-KYC environments with a lack of centralized customer information base, complex relationship with consumers in traditional risk underwriting where sometimes customer centricity runs reverse to business profit, inertia of regulatory compliance - are some of the unique challenges faced by Insurance Business.
+
+Content
+
+This dataset contains 1338 rows of insured data, where the Insurance charges are given against the following attributes of the insured: Age, Sex, BMI, Number of Children, Smoker and Region. There are no missing or undefined values in the dataset.
+
+Overview
+
+
+![image](https://github.com/JoshuaKab/SQL-Queries/assets/135429439/a5e46920-0792-4ed0-a948-a229d5a0ce71)
 
 
 ```python
-1. what's the age disrbution per region and total number of children
+1. What is the age distribution of customers
 
-SELECT region,
-	AVG(age) AS Age_average,
-    Sum(children) as number_children
+SELECT age,
+COUNT(age) AS distribution
 FROM insurance
-GROUP BY region
+group By age
+HAVING COUNT(age) > 25
+
+
+```
+Output
+![image](https://github.com/JoshuaKab/SQL-Queries/assets/135429439/7de5e066-1f08-40c3-a40a-0eb2988d0250)
+The age distribution shows that most of the customers are between the ages of 18 and 40. 
+The youngest is 18, and the oldest is 64.
+Output
+
+```python
+2. Write a query to obtain the top 4 charge of Per region order by Descending. 
+
+with CTE_1 AS (SELECT
+region, 
+sex,
+smoker,
+charges,
+DENSE_RANK() OVER (PARTITION BY region ORDER BY charges DESC) as ranking
+FROM insurance)
+
+SELECT region, 
+sex,
+smoker,
+charges,
+ranking
+FROM CTE_1
+WHERE ranking <=4
+  
+
 ```
 Output
 
-![image](https://github.com/JoshuaKab/SQL-Queries/assets/135429439/7de5e066-1f08-40c3-a40a-0eb2988d0250)
-
-
-
+![image](https://github.com/JoshuaKab/SQL-Queries/assets/135429439/0c379fcc-e1b3-408c-8fc0-da6a3891d3fc)
 
 
 ```python
-2. What 's the body mass distribution per gender
+3. What 's the body mass distribution per gender
 
 WITH Weight_Category AS (SELECT region, smoker, sex,
   CASE 
@@ -43,10 +84,10 @@ Output
 ![image](https://github.com/JoshuaKab/SQL-Queries/assets/135429439/0026ce39-be11-4c8e-b170-f21d27902dbb)
 
 
-The weight distribution query showed that most people are obese follow by overweight and leas weight group is the people under weight mostly woman
+The weight distribution query showed that most people are obese, followed by overweight, and the fewest people in the weight group column are mostly women who are underweight.
 
 ```python
-3. What's the total distribution charges per gender distribution
+4. What's the total distribution charges per gender distribution
 
  SELECT
  sex, smoker,
@@ -64,15 +105,17 @@ Output
 
 ![image](https://github.com/JoshuaKab/SQL-Queries/assets/135429439/4acdea6a-165c-4382-895c-881b1a7edcc9)
 
-Female that smorks pay more than the none smokers with different of 12.7% from total charge
+Females who smoke pay more than non-smokers, with a difference of 12.7% from the total charge.
 
-Males are the opposite, males that are smoking are less charge than the none smokers
+Males are the opposite; males who are smoking are charged less than non-smokers.
 
-In total males are paying 6.28% high the famales 
+In total, males are paying 6.28% more than females. 
+
+Most customers don't have children; follow those with only one child.
 
 
 ```python
-4. What's children distribution per customers
+5. What's children distribution per customers
  SELECT children,
  count(children) as total,
     (count(smoker) / (SELECT COUNT(smoker) FROM insurance) * 100) AS percentage
@@ -84,11 +127,12 @@ GROUP by children
 Output
 
 ![image](https://github.com/JoshuaKab/SQL-Queries/assets/135429439/d75d0d18-5529-4d5b-ab84-3828f843ca60)
-  Most customers don't have children follow those with only 1 chlid
+
+  Most customers don't have children; follow those with only one child.
 
 ```python
 
-5. What's the distribution per customers with smoking habits
+6. What's the distribution per customers with smoking habits
 SELECT smoker,
 count(smoker) as total,
     (count(smoker) / (SELECT COUNT(smoker) FROM insurance) * 100) AS percentage
@@ -100,7 +144,40 @@ Outpu
 
 ![image](https://github.com/JoshuaKab/SQL-Queries/assets/135429439/3c627f9c-0124-4285-87ce-b023fed0e1a5)
 
- 20.5% of customers do smokes 
- 79.5% of customers don't smork
+20.5% of customers smoke. 
+ 
+79.5% of customers don't smork.
 
+```python
+7. Show the breakdown of payment charges per gender,  group by  region and round 2 decimal  in percentage 
+  then add a column to show % the difference between the two genders
+
+with cte as (
+ SELECT
+ region, 
+    sum(case when sex = 'male' THEN charges else 0 end) AS male_charge,
+	sum(case when sex = 'female' THEN charges else 0 end) AS female_charge,
+	SUM(charges) as total_charge
+  FROM insurance
+  GROUP by region),
+  
+ percentage as( SELECT
+  region,
+   round((male_charge / total_charge) * 100 , 2 ) as male_perc,
+   round((female_charge / total_charge) * 100 , 2 ) as female_perc
+  FROM cte)
+  
+  SELECT *,
+  male_perc - female_perc as diff_perc
+  FROM percentage
+  
+
+```
+Output
+
+![image](https://github.com/JoshuaKab/SQL-Queries/assets/135429439/6563b40c-9d01-4996-8148-2d8e1e462096)
+
+The brakdown on the margin of genders in the southeast region shows a gap of 11.90%. 
+
+followed by the southeast region with 8.96%. while nothwest -1.42% shows female total peyment is higher by 1.42%.
 
