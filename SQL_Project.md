@@ -182,3 +182,31 @@ The brakdown on the margin of genders in the southeast region shows a gap of 11.
 
 followed by the southeast region with 8.96%. while nothwest -1.42% shows female total peyment is higher by 1.42%.
 
+2.1 Data transformation
+
+```python
+2.1 create new Weight_group column in table
+ALTER TABLE insurance
+ADD bmi_group varchar(50);
+
+2.2 update in weight group column
+UPDATE insurance
+SET bmi_group =  CASE 
+  WHEN bmi BETWEEN 0 and 18.5 THEN 'underweight'
+  WHEN bmi BETWEEN 18.6 and 24.9 then 'Healthy Weight'
+  WHEN bmi BETWEEN 25.0 and 29.9 then 'Over Weight'
+  WHEN bmi BETWEEN 30 and 34.9 then 'Obese'
+  ELSE 'Extremely obese' END
+
+2.3 rename column sex to gender 
+ALTER TABLE insurance 
+RENAME COLUMN sex TO gender;
+
+
+```
+
+2.4 Save the artwork for further analysis in Tableau dashboard
+
+CONCLUSION
+--
+
