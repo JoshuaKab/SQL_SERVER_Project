@@ -35,7 +35,7 @@ The youngest is 18, and the oldest is 64.
 Output
 
 ```python
-2. Write a query to obtain the top 4 charge of Per region order by Descending. 
+2. Write a query to obtain the top 4 customers highly charge per region and arrange by descending order. 
 
 with CTE_1 AS (SELECT
 region, 
@@ -61,7 +61,7 @@ Output
 
 
 ```python
-3. What 's the body mass distribution per gender
+3. What 's the body mass index distribution per gender
 
 WITH Weight_Category AS (SELECT region, smoker, sex,
   CASE 
@@ -88,7 +88,7 @@ Output
 The weight distribution query showed that most people are obese, followed by overweight, and the fewest people in the weight group column are mostly women who are underweight.
 
 ```python
-4. What's the total distribution charges per gender distribution
+4. What's the total distribution of fees charges per gender distribution
 
  SELECT
  sex, smoker,
@@ -133,7 +133,7 @@ Output
 
 ```python
 
-6. What's the distribution per customers with smoking habits
+6. What's the distribution per customers in smoking column
 SELECT smoker,
 count(smoker) as total,
     (count(smoker) / (SELECT COUNT(smoker) FROM insurance) * 100) AS percentage
@@ -151,7 +151,7 @@ Outpu
 
 ```python
 7. Show the breakdown of payment charges per gender,  group by  region and round 2 decimal  in percentage 
-  then add a column to show % the difference between the two genders
+  then add a column to show % difference between the two genders
 
 with cte as (
  SELECT
@@ -206,6 +206,11 @@ RENAME COLUMN sex TO gender;
 ```
 
 2.4 Save the artwork for further analysis in Tableau dashboard
+
+Tableasu Dashboard [link](https://public.tableau.com/app/profile/joshua.k.1176/viz/USinsurance_17134503455500/Dashboard1)
+
+![Dashboard 1 (1)](https://github.com/JoshuaKab/SQL-Queries/assets/135429439/cf76470f-c285-424a-a434-c1ca956bd6ca)
+
 
 CONCLUSION
 --
