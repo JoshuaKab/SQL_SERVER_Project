@@ -1,23 +1,18 @@
 Project name: Data analyst for US Health Insurance 
 
-About Dataset
 
-Context
-
-The venerable insurance industry is no stranger to data driven decision making. Yet in today's rapidly transforming digital landscape, Insurance is struggling to adapt and benefit from new technologies compared to other industries, even within the BFSI sphere (compared to the Banking sector for example.) Extremely complex underwriting rule-sets that are radically different in different product lines, many non-KYC environments with a lack of centralized customer information base, complex relationship with consumers in traditional risk underwriting where sometimes customer centricity runs reverse to business profit, inertia of regulatory compliance - are some of the unique challenges faced by Insurance Business.
-
-Content
+# Content
 
 This dataset contains 1338 rows of insured data, where the Insurance charges are given against the following attributes of the insured: Age, Sex, BMI, Number of Children, Smoker and Region. There are no missing or undefined values in the dataset.
 
-Overview with excel sheet
+Overview the dataframe in excel sheet
 
 
 ![image](https://github.com/JoshuaKab/SQL-Queries/assets/135429439/a5e46920-0792-4ed0-a948-a229d5a0ce71)
 
 
 ```python
-1. What is the age distribution of customers
+#1. What is the age distribution of customers
 
 SELECT age,
 COUNT(age) AS distribution
@@ -28,6 +23,7 @@ HAVING COUNT(age) > 25
 
 ```
 Output
+
 ![image](https://github.com/JoshuaKab/SQL-Queries/assets/135429439/c26cf0d5-a881-4a3f-b665-abf2e5c1f88a)
 
 The age distribution shows that most of the customers are between the ages of 18 and 40. 
@@ -35,7 +31,7 @@ The youngest is 18, and the oldest is 64.
 Output
 
 ```python
-2. Write a query to obtain the top 4 customers highly charge per region and arrange by descending order. 
+#2. Write a query to obtain the top 4 customers highly charge per region and arrange by descending order. 
 
 with CTE_1 AS (SELECT
 region, 
@@ -57,11 +53,12 @@ WHERE ranking <=4
 ```
 Output
 
+
 ![image](https://github.com/JoshuaKab/SQL-Queries/assets/135429439/0c379fcc-e1b3-408c-8fc0-da6a3891d3fc)
 
 
 ```python
-3. What 's the body mass index distribution per gender
+#3. What 's the body mass index distribution per gender
 
 WITH Weight_Category AS (SELECT region, smoker, sex,
   CASE 
@@ -88,7 +85,7 @@ Output
 The weight distribution query showed that most people are obese, followed by overweight, and the fewest people in the weight group column are mostly women who are underweight.
 
 ```python
-4. What's the total distribution of fees charges per gender distribution
+#4. What's the total distribution of fees charges per gender distribution
 
  SELECT
  sex, smoker,
@@ -116,7 +113,7 @@ Most customers don't have children; follow those with only one child.
 
 
 ```python
-5. What's children distribution per customers
+#5. What's children distribution per customers
  SELECT children,
  count(children) as total,
     (count(smoker) / (SELECT COUNT(smoker) FROM insurance) * 100) AS percentage
@@ -133,7 +130,7 @@ Output
 
 ```python
 
-6. What's the distribution per customers in smoking column
+#6. What's the distribution per customers in smoking column
 SELECT smoker,
 count(smoker) as total,
     (count(smoker) / (SELECT COUNT(smoker) FROM insurance) * 100) AS percentage
@@ -141,7 +138,7 @@ FROM insurance
 GROUP by smoker
 
 ```
-Outpu
+Output
 
 ![image](https://github.com/JoshuaKab/SQL-Queries/assets/135429439/3c627f9c-0124-4285-87ce-b023fed0e1a5)
 
@@ -150,7 +147,7 @@ Outpu
 79.5% of customers don't smork.
 
 ```python
-7. Show the breakdown of payment charges per gender,  group by  region and round 2 decimal  in percentage 
+#7. Show the breakdown of payment charges per gender,  group by  region and round 2 decimal  in percentage 
   then add a column to show % difference between the two genders
 
 with cte as (
@@ -185,7 +182,7 @@ followed by the southeast region with 8.96%. while nothwest -1.42% shows female 
 2.1 Data transformation
 
 ```python
-2.1 create new Weight_group column in table
+#2.1 create new Weight_group column in table
 ALTER TABLE insurance
 ADD bmi_group varchar(50);
 
@@ -198,20 +195,20 @@ SET bmi_group =  CASE
   WHEN bmi BETWEEN 30 and 34.9 then 'Obese'
   ELSE 'Extremely obese' END
 
-2.3 rename column sex to gender 
+#2.3 rename column sex to gender 
 ALTER TABLE insurance 
 RENAME COLUMN sex TO gender;
 
 
 ```
 
-2.4 Save the artwork for further analysis in Tableau dashboard
+2.4 The dataframe was save for further analysis in Tableau dashboard
 
 Tableasu Dashboard [link](https://public.tableau.com/app/profile/joshua.k.1176/viz/USinsurance_17134503455500/Dashboard1)
 
 ![Dashboard 1 (1)](https://github.com/JoshuaKab/SQL-Queries/assets/135429439/cf76470f-c285-424a-a434-c1ca956bd6ca)
 
 
-CONCLUSION
+# CONCLUSION
 --
 
