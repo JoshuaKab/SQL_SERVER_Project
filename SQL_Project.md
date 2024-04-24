@@ -204,7 +204,7 @@ RENAME COLUMN sex TO gender;
 
 2.4 The dataframe was save for further analysis in Tableau dashboard
 
-Tableasu Dashboard [link](https://public.tableau.com/app/profile/joshua.k.1176/viz/USinsurance_17134503455500/Dashboard1)
+Tableau Dashboard [link](https://public.tableau.com/app/profile/joshua.k.1176/viz/USinsurance_17134503455500/Dashboard1)
 
 ![Dashboard 1 (1)](https://github.com/JoshuaKab/SQL-Queries/assets/135429439/cf76470f-c285-424a-a434-c1ca956bd6ca)
 
