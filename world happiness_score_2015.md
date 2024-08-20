@@ -1,4 +1,4 @@
-This project was complited with SQLite and Python
+This project was completed with SQLite and Python.
 
 # Obejective
 
